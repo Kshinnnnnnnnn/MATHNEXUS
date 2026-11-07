@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10151d">
+  <title>MathNexus-style Scientific Workbench</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="MathNexus home"><span class="brand-mark">∿</span><span>MATH<span class="brand-accent">NEXUS</span> <small>WEB WORKSPACE</small></span></a>
+    <div class="topbar-center"><span class="status-dot"></span> Browser session <span class="topbar-divider">/</span> <span id="session-label">Ready</span></div>
+    <div class="topbar-actions"><button class="icon-button" id="help-button" title="Help">?</button><button class="icon-button" id="theme-button" title="Toggle theme">◐</button></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="side-heading">WORKSPACE</div>
+      <button class="side-item active" data-panel="command"><span>⌘</span> Command Window</button>
+      <button class="side-item" data-panel="editor"><span>▤</span> Script Editor</button>
+      <button class="side-item" data-panel="variables"><span>◫</span> Variables</button>
+      <button class="side-item" data-panel="plots"><span>⌁</span> Plots</button>
+      <div class="side-heading examples-heading">QUICK START</div>
+      <button class="example-link" data-example="plot">Plot a signal</button>
+      <button class="example-link" data-example="matrix">Matrix operations</button>
+      <button class="example-link" data-example="function">Trigonometry</button>
+      <div class="sidebar-footer"><span class="status-dot"></span> Local compute <span class="offline-label">· Offline</span></div>
+    </aside>
+    <section class="main-area">
+      <div class="main-heading"><div><div class="eyebrow">SCIENTIFIC COMPUTING</div><h1>Command Window</h1></div><div class="heading-right"><span class="runtime-pill">MathNexus-like · JavaScript runtime</span></div></div>
+      <div class="content-grid">
+        <section class="panel command-panel" aria-label="Command window">
+          <div class="panel-title"><span class="panel-icon">⌘</span><span>Command Window</span><div class="panel-tools"><button id="clear-button" class="text-button">Clear output</button></div></div>
+          <div id="console-output" class="console-output" aria-live="polite"><div class="welcome-block"><div class="welcome-symbol">∿</div><div><strong>Welcome to your workspace</strong><p>Enter an expression below, or try <code>help</code> to see what you can do.</p></div></div><div class="console-line muted">Tip: end a command with <code>;</code> to suppress its output.</div></div>
+          <form id="command-form" class="command-form" autocomplete="off"><label class="prompt" for="command-input">&gt;&gt;</label><input id="command-input" aria-label="Enter a command" placeholder="Type a command, e.g. x = linspace(0, 2*pi, 100)" spellcheck="false"><button type="submit" class="run-button" title="Run command">Run <span>↵</span></button></form>
+          <div class="command-hint"><span>Enter to run</span><span>↑ ↓ command history</span><span>Type <code>help</code> for functions</span></div>
+        </section>
+        <section class="panel editor-panel" aria-label="Script editor">
+          <div class="panel-title"><span class="panel-icon">▤</span><span>Script Editor</span><div class="panel-tools"><button id="run-script" class="small-run">▶ Run</button></div></div>
+          <div class="editor-wrap"><div class="line-numbers" id="line-numbers">1<br>2<br>3<br>4<br>5<br>6</div><textarea id="script-editor" aria-label="Script editor" spellcheck="false">% Plot a sine wave
+x = linspace(0, 2*pi, 100);
+y = sin(x);
+plot(x, y);
+title('A sine wave');
+xlabel('x');</textarea></div>
+          <div class="editor-footer"><span>script.m</span><span>MathNexus · UTF-8</span></div>
+        </section>
+        <section class="panel plot-panel" aria-label="Figure window">
+          <div class="panel-title"><span class="panel-icon">⌁</span><span>Figure 1</span><div class="panel-tools"><button id="download-plot" class="text-button">↓ Export</button></div></div>
+          <div class="plot-wrap"><canvas id="plot-canvas" aria-label="Plot output"></canvas><div id="plot-empty" class="plot-empty"><span>⌁</span><strong>Your figures appear here</strong><small>Run <code>plot(x, y)</code> to create a chart.</small></div></div>
+          <div id="plot-caption" class="plot-caption">No active figure</div>
+        </section>
+        <section class="panel variables-panel" aria-label="Workspace variables">
+          <div class="panel-title"><span class="panel-icon">◫</span><span>Workspace</span><div class="panel-tools"><span id="variable-count" class="count-badge">0</span></div></div>
+          <div class="table-scroll"><table><thead><tr><th>Name</th><th>Value</th><th>Size</th></tr></thead><tbody id="variable-rows"><tr class="empty-row"><td colspan="3">Variables you create will show up here.</td></tr></tbody></table></div>
+          <div class="workspace-footer">Variables are stored in this browser session.</div>
+        </section>
+      </div>
+      <footer class="page-footer"><span>Scientific workbench</span><span>Calculations run locally in your browser</span></footer>
+    </section>
+  </main>
+  <dialog id="help-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button><div class="eyebrow">QUICK REFERENCE</div><h2>Commands and functions</h2><p>Enter one command per line. Use <code>%</code> for comments and <code>;</code> to hide a result.</p><div class="help-list"><div><code>x = [1 2 3]</code><span>Create a row vector</span></div><div><code>A = [1 2; 3 4]</code><span>Create a matrix</span></div><div><code>plot(x, sin(x))</code><span>Draw a line plot</span></div><div><code>linspace(a,b,n)</code><span>Generate evenly spaced values</span></div><div><code>sin cos tan sqrt abs exp log</code><span>Element-wise math functions</span></div><div><code>zeros ones eye size sum mean</code><span>Matrix helpers</span></div><div><code>clear</code><span>Clear variables and output</span></div></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
