@@ -38,6 +38,28 @@
     return isVector(a) && isVector(b) ? out[0][0] : isVector(a) ? out[0] : out;
   }
 
+  function determinant(value) {
+    if (!isMatrix(value)) throw Error('det expects a square matrix.');
+    const A = matrix(value).map((row) => row.slice());
+    const n = A.length;
+    if (!n || A.some((row) => !Array.isArray(row) || row.length !== n)) throw Error('det expects a square matrix.');
+    if (A.some((row) => row.some((v) => !numeric(v)))) throw Error('det requires a numeric matrix.');
+    let det = 1;
+    for (let col = 0; col < n; col++) {
+      let pivot = col;
+      for (let row = col + 1; row < n; row++) if (Math.abs(A[row][col]) > Math.abs(A[pivot][col])) pivot = row;
+      if (Math.abs(A[pivot][col]) < Number.EPSILON) return 0;
+      if (pivot !== col) { [A[pivot], A[col]] = [A[col], A[pivot]]; det = -det; }
+      const pivotValue = A[col][col];
+      det *= pivotValue;
+      for (let row = col + 1; row < n; row++) {
+        const factor = A[row][col] / pivotValue;
+        for (let j = col + 1; j < n; j++) A[row][j] -= factor * A[col][j];
+      }
+    }
+    return Math.abs(det) < Number.EPSILON ? 0 : det;
+  }
+
   function tokenize(source) {
     const tokens = [];
     const re = /\s+|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?|[A-Za-z_]\w*|\.\*|\.\/|\.\^|==|~=|<=|>=|[+\-*\/%^=(),;:\[\]<>]/gy;
@@ -121,6 +143,7 @@
       case 'zeros': case 'ones': { const d = isMatrix(a) ? a : args.slice(0, 2); const r = d[0] || 1, c = d[1] || r; return Array.from({ length: r }, () => Array(c).fill(name === 'ones' ? 1 : 0)); }
       case 'eye': { const n = a; return Array.from({ length: n }, (_, r) => Array.from({ length: n }, (_, c) => r === c ? 1 : 0)); }
       case 'size': return sizeValue(a);
+      case 'det': return determinant(a);
       case 'sum': case 'mean': { const flat = (isMatrix(a) ? a.flat(Infinity) : [a]); const s = flat.reduce((x, y) => x + y, 0); return name === 'mean' ? s / flat.length : s; }
       case 'min': case 'max': { const flat = args.flatMap((x) => isMatrix(x) ? x.flat(Infinity) : [x]); return Math[name](...flat); }
       case 'plot': drawPlot(args[0], args[1]); return 'Figure updated';
@@ -138,7 +161,7 @@
   function runLine(raw) {
     const source = raw.replace(/%.*$/, '').trim();
     if (!source) return;
-    if (/^help$/i.test(source)) { appendLine('Supported: vectors [1 2 3], matrices [1 2; 3 4], + - * ./ ^, linspace, zeros, ones, eye, size, sum, mean, sin, cos, tan, sqrt, abs, exp, log, plot, clear.', 'result-line'); return; }
+    if (/^help$/i.test(source)) { appendLine('Supported: vectors [1 2 3], matrices [1 2; 3 4], + - * ./ ^, linspace, zeros, ones, eye, size, det, sum, mean, sin, cos, tan, sqrt, abs, exp, log, plot, clear.', 'result-line'); return; }
     if (/^clc$/i.test(source)) { output.innerHTML = ''; return; }
     if (/^clear(?:\s+all)?$/i.test(source)) { Object.keys(vars).forEach((k) => delete vars[k]); renderVars(); appendLine('Workspace cleared.', 'result-line'); return; }
     const suppress = /;\s*$/.test(source);
@@ -194,5 +217,5 @@
     const target = { command: 'command-panel', editor: 'editor-panel', variables: 'variables-panel', plots: 'plot-panel' }[button.dataset.panel];
     document.querySelector(`.${target}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
   }));
-  window.addEventListener('resize', () => { if (plotState) drawPlot(); });
+  window.addEventListener('resize', () => { if (plotState) drawPlot(); });  
 })();
