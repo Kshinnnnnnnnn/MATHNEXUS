@@ -210,7 +210,14 @@
   $('theme-button').addEventListener('click', () => document.body.classList.toggle('light-theme'));
   $('download-plot').addEventListener('click', () => { if (!plotState) return; const a = document.createElement('a'); a.download = 'figure.png'; a.href = $('plot-canvas').toDataURL('image/png'); a.click(); });
   document.querySelectorAll('.example-link').forEach((button) => button.addEventListener('click', () => {
-    const examples = { plot: 'x = linspace(0, 2*pi, 100);\ny = sin(x);\nplot(x, y);\ntitle(\'Sine wave\');', matrix: 'A = [1 2; 3 4]\nb = [5 6; 7 8]\nC = A + b', function: 'x = linspace(0, 2*pi, 100);\ny = cos(x);\nplot(x, y);\ntitle(\'Cosine wave\');' };
+    const examples = {
+      plot: 'x = linspace(0, 2*pi, 100);\ny = sin(x);\nplot(x, y);\ntitle(\'Sine wave\');',
+      matrix: 'A = [1 2; 3 4]\nb = [5 6; 7 8]\nC = A + b',
+      function: 'x = linspace(0, 2*pi, 100);\ny = cos(x);\nplot(x, y);\ntitle(\'Cosine wave\');',
+      logs: 'x = [2 10 100];\nln_x = log(x);\nlog2_x = log2(x);\nlog10_x = log10(x);\nlog_base_3_of_81 = log(81, 3)',
+      statistics: 'measurements = [4 7 9 10 15];\ntotal = sum(measurements);\naverage = mean(measurements);\nsmallest = min(measurements);\nlargest = max(measurements)',
+      determinant: 'A = [4 7; 2 6]\ndet_A = det(A)'
+    };
     $('script-editor').value = examples[button.dataset.example]; $('script-editor').dispatchEvent(new Event('input')); runScript($('script-editor').value);
   }));
   document.querySelectorAll('.side-item').forEach((button) => button.addEventListener('click', () => {
