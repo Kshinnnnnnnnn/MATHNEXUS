@@ -136,9 +136,10 @@
 
   function callFunction(name, args) {
     const a = args[0];
-    const math = { sin: Math.sin, cos: Math.cos, tan: Math.tan, asin: Math.asin, acos: Math.acos, atan: Math.atan, sqrt: Math.sqrt, abs: Math.abs, exp: Math.exp, log: Math.log, log10: Math.log10, floor: Math.floor, ceil: Math.ceil, round: Math.round, sign: Math.sign };
+    const math = { sin: Math.sin, cos: Math.cos, tan: Math.tan, asin: Math.asin, acos: Math.acos, atan: Math.atan, sqrt: Math.sqrt, abs: Math.abs, exp: Math.exp, log10: Math.log10, log2: Math.log2, floor: Math.floor, ceil: Math.ceil, round: Math.round, sign: Math.sign };
     if (math[name]) return mapDeep(a, math[name]);
     switch (name) {
+      case 'log': return args.length > 1 ? elementwise(a, args[1], (x, base) => Math.log(x) / Math.log(base)) : mapDeep(a, Math.log);
       case 'linspace': { const start = args[0], end = args[1], n = Math.max(0, Math.floor(args[2] ?? 100)); return n <= 1 ? [start] : Array.from({ length: n }, (_, i) => start + (end - start) * i / (n - 1)); }
       case 'zeros': case 'ones': { const d = isMatrix(a) ? a : args.slice(0, 2); const r = d[0] || 1, c = d[1] || r; return Array.from({ length: r }, () => Array(c).fill(name === 'ones' ? 1 : 0)); }
       case 'eye': { const n = a; return Array.from({ length: n }, (_, r) => Array.from({ length: n }, (_, c) => r === c ? 1 : 0)); }
@@ -161,7 +162,7 @@
   function runLine(raw) {
     const source = raw.replace(/%.*$/, '').trim();
     if (!source) return;
-    if (/^help$/i.test(source)) { appendLine('Supported: vectors [1 2 3], matrices [1 2; 3 4], + - * ./ ^, linspace, zeros, ones, eye, size, det, sum, mean, sin, cos, tan, sqrt, abs, exp, log, plot, clear.', 'result-line'); return; }
+    if (/^help$/i.test(source)) { appendLine('Supported: vectors [1 2 3], matrices [1 2; 3 4], + - * ./ ^, linspace, zeros, ones, eye, size, det, sum, mean, sin, cos, tan, sqrt, abs, exp, log(x[,base]), log2, log10, plot, clear.', 'result-line'); return; }
     if (/^clc$/i.test(source)) { output.innerHTML = ''; return; }
     if (/^clear(?:\s+all)?$/i.test(source)) { Object.keys(vars).forEach((k) => delete vars[k]); renderVars(); appendLine('Workspace cleared.', 'result-line'); return; }
     const suppress = /;\s*$/.test(source);
