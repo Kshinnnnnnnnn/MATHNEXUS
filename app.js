@@ -208,6 +208,26 @@
   $('clear-button').addEventListener('click', () => { output.innerHTML = ''; });
   $('help-button').addEventListener('click', () => $('help-dialog').showModal());
   $('theme-button').addEventListener('click', () => document.body.classList.toggle('light-theme'));
+  const renderLatex = () => {
+    const preview = $('latex-preview');
+    const status = $('latex-status');
+    const source = $('latex-input').value.trim();
+    preview.textContent = source ? `\\[${source}\\]` : 'Enter a LaTeX expression to preview it.';
+    if (!source || !window.MathJax?.typesetPromise) {
+      if (source) status.textContent = 'Math renderer is still loading. Try Render again shortly.';
+      return;
+    }
+    window.MathJax.typesetClear([preview]);
+    window.MathJax.typesetPromise([preview]).then(() => {
+      status.textContent = 'Rendered with MathJax';
+    }).catch(() => {
+      status.textContent = 'Could not render this expression. Check the LaTeX syntax.';
+    });
+  };
+  $('latex-render').addEventListener('click', renderLatex);
+  window.addEventListener('load', () => {
+    if (window.MathJax?.startup?.promise) window.MathJax.startup.promise.then(renderLatex);
+  });
   $('download-plot').addEventListener('click', () => { if (!plotState) return; const a = document.createElement('a'); a.download = 'figure.png'; a.href = $('plot-canvas').toDataURL('image/png'); a.click(); });
   document.querySelectorAll('.example-link').forEach((button) => button.addEventListener('click', () => {
     const examples = {

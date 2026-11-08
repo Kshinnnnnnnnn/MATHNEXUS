@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#10151d">
   <title>MATHNEXUS</title>
   <link rel="stylesheet" href="style.css">
+  <script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, startup: { typeset: false } };</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
   <header class="topbar">
@@ -57,6 +59,14 @@ xlabel('x');</textarea></div>
           <div class="panel-title"><span class="panel-icon">◫</span><span>Workspace</span><div class="panel-tools"><span id="variable-count" class="count-badge">0</span></div></div>
           <div class="table-scroll"><table><thead><tr><th>Name</th><th>Value</th><th>Size</th></tr></thead><tbody id="variable-rows"><tr class="empty-row"><td colspan="3">Variables you create will show up here.</td></tr></tbody></table></div>
           <div class="workspace-footer">Variables are stored in this browser session.</div>
+        </section>
+        <section class="panel latex-panel" aria-label="LaTeX equation preview">
+          <div class="panel-title"><span class="panel-icon">ƒ</span><span>LaTeX Equation Preview</span><div class="panel-tools"><button id="latex-render" class="small-run">Render</button></div></div>
+          <label class="latex-label" for="latex-input">Type a LaTeX expression</label>
+          <textarea id="latex-input" class="latex-input" spellcheck="false" aria-label="LaTeX expression">\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}</textarea>
+          <div class="latex-preview-label">Preview</div>
+          <div id="latex-preview" class="latex-preview" aria-live="polite">Loading math renderer…</div>
+          <div id="latex-status" class="editor-footer">Supports standard LaTeX math notation</div>
         </section>
       </div>
       <footer class="page-footer"><span>Scientific workbench</span><span>Calculations run locally in your browser</span></footer>

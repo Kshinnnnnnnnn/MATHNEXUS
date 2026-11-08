@@ -630,6 +630,45 @@ html, body {
   tab-size: 4;
 }
 
+.latex-label,
+.latex-preview-label {
+  padding: 10px 12px 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.latex-input {
+  min-height: 92px;
+  margin: 0 12px;
+  padding: 10px;
+  resize: vertical;
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  background: var(--bg-code);
+  color: var(--text-main);
+  font: 12.5px/1.5 var(--font-mono);
+}
+
+.latex-input:focus { border-color: var(--accent); }
+
+.latex-preview {
+  flex: 1;
+  min-height: 76px;
+  margin: 0 12px 8px;
+  padding: 12px;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-canvas);
+  color: var(--text-main);
+}
+
+.latex-preview mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+
 .editor-footer {
   display: flex;
   justify-content: space-between;
