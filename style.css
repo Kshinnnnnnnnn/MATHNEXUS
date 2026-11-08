@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MATLAB-style Scientific Workbench Stylesheet
+   mathnexus-style Scientific Workbench Stylesheet
    Designed for index.html & app.js
    ========================================================================== */
 
@@ -8,9 +8,9 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Brand Accents */
-  --matlab-orange: #e06c3a;
-  --matlab-blue: #0088cc;
-  --matlab-blue-hover: #00a0f0;
+  --matnexus-orange: #e06c3a;
+  --mathnexus-blue: #0088cc;
+  --mathnexus-blue-hover: #00a0f0;
   --accent-teal: #47b7a4;
   --status-ready: #2da44e;
   --status-error: #f85149;
@@ -142,7 +142,7 @@ html, body {
   justify-content: center;
   width: 26px;
   height: 26px;
-  background: linear-gradient(135deg, var(--matlab-orange), #b83c16);
+  background: linear-gradient(135deg, var(--mathnexus-orange), #b83c16);
   color: #ffffff;
   border-radius: var(--radius-sm);
   font-size: 17px;
@@ -151,7 +151,7 @@ html, body {
 }
 
 .brand-accent {
-  color: var(--matlab-orange);
+  color: var(--mathnexus-orange);
 }
 
 .brand small {
@@ -337,7 +337,7 @@ html, body {
 .eyebrow {
   font-size: 11px;
   font-weight: 700;
-  color: var(--matlab-orange);
+  color: var(--mathnexus-orange);
   letter-spacing: 1px;
   margin-bottom: 2px;
 }
@@ -483,7 +483,7 @@ html, body {
 
 .welcome-symbol {
   font-size: 24px;
-  color: var(--matlab-orange);
+  color: var(--mathnexus-orange);
 }
 
 .welcome-block strong {
@@ -560,7 +560,7 @@ html, body {
 }
 
 .run-button {
-  background: var(--matlab-blue);
+  background: var(--mathnexus-blue);
   color: #ffffff;
   border: none;
   padding: 4px 10px;
@@ -575,7 +575,7 @@ html, body {
 }
 
 .run-button:hover {
-  background: var(--matlab-blue-hover);
+  background: var(--mathnexus-blue-hover);
 }
 
 .command-hint {
