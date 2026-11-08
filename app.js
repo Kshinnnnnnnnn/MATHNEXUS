@@ -208,6 +208,34 @@
   $('clear-button').addEventListener('click', () => { output.innerHTML = ''; });
   $('help-button').addEventListener('click', () => $('help-dialog').showModal());
   $('theme-button').addEventListener('click', () => document.body.classList.toggle('light-theme'));
+  const formatLatexSource = (source) => {
+    const tokens = source.trim().split(/(\\begin\{[^}]+\}|\\end\{[^}]+\}|\\\\)/g).filter(Boolean);
+    const lines = [];
+    let depth = 0;
+    let line = '';
+    const flush = () => {
+      if (line.trim()) lines.push(`${'  '.repeat(depth)}${line.trim()}`);
+      line = '';
+    };
+    tokens.forEach((token) => {
+      if (token.startsWith('\\begin{')) {
+        flush();
+        lines.push(`${'  '.repeat(depth)}${token}`);
+        depth++;
+      } else if (token.startsWith('\\end{')) {
+        flush();
+        depth = Math.max(0, depth - 1);
+        lines.push(`${'  '.repeat(depth)}${token}`);
+      } else if (token === '\\\\') {
+        line = `${line.trimEnd()} \\\\`;
+        flush();
+      } else {
+        line += token;
+      }
+    });
+    flush();
+    return lines.join('\n');
+  };
   const renderLatex = () => {
     const preview = $('latex-preview');
     const status = $('latex-status');
@@ -224,6 +252,11 @@
       status.textContent = 'Could not render this expression. Check the LaTeX syntax.';
     });
   };
+  $('latex-format').addEventListener('click', () => {
+    $('latex-input').value = formatLatexSource($('latex-input').value);
+    $('latex-status').textContent = 'Formatted environments and line breaks';
+    renderLatex();
+  });
   $('latex-render').addEventListener('click', renderLatex);
   window.addEventListener('load', () => {
     if (window.MathJax?.startup?.promise) window.MathJax.startup.promise.then(renderLatex);
