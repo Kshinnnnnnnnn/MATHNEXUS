@@ -1,5 +1,5 @@
 /* ==========================================================================
-   mathnexus-style Scientific Workbench Stylesheet
+   MATLAB-style Scientific Workbench Stylesheet
    Designed for index.html & app.js
    ========================================================================== */
 
@@ -8,9 +8,9 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Brand Accents */
-  --matnexus-orange: #e06c3a;
-  --mathnexus-blue: #0088cc;
-  --mathnexus-blue-hover: #00a0f0;
+  --matnexus-white: #e8f0e6;
+  --matlab-blue: #0088cc;
+  --matlab-blue-hover: #00a0f0;
   --accent-teal: #47b7a4;
   --status-ready: #2da44e;
   --status-error: #f85149;
@@ -117,7 +117,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 48px;
+  height: 50px;
   padding: 0 16px;
   background-color: var(--bg-topbar);
   border-bottom: 1px solid var(--bg-border);
@@ -142,16 +142,16 @@ html, body {
   justify-content: center;
   width: 26px;
   height: 26px;
-  background: linear-gradient(135deg, var(--mathnexus-orange), #b83c16);
+  background: linear-gradient(135deg, var(--matlab-blue), #006699);
   color: #ffffff;
   border-radius: var(--radius-sm);
   font-size: 17px;
   font-weight: 900;
-  box-shadow: 0 2px 4px rgba(224, 108, 58, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 136, 204, 0.3);
 }
 
 .brand-accent {
-  color: var(--mathnexus-orange);
+  color: var(--matlab-blue);
 }
 
 .brand small {
@@ -337,7 +337,7 @@ html, body {
 .eyebrow {
   font-size: 11px;
   font-weight: 700;
-  color: var(--mathnexus-orange);
+  color: var(--matlab-blue);
   letter-spacing: 1px;
   margin-bottom: 2px;
 }
@@ -483,7 +483,7 @@ html, body {
 
 .welcome-symbol {
   font-size: 24px;
-  color: var(--mathnexus-orange);
+  color: var(--matlab-blue);
 }
 
 .welcome-block strong {
@@ -560,7 +560,7 @@ html, body {
 }
 
 .run-button {
-  background: var(--mathnexus-blue);
+  background: var(--matnexus-blue);
   color: #ffffff;
   border: none;
   padding: 4px 10px;
@@ -575,7 +575,7 @@ html, body {
 }
 
 .run-button:hover {
-  background: var(--mathnexus-blue-hover);
+  background: var(--matlab-blue-hover);
 }
 
 .command-hint {
