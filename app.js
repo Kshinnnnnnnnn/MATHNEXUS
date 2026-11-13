@@ -274,7 +274,12 @@
     $('script-editor').value = examples[button.dataset.example]; $('script-editor').dispatchEvent(new Event('input')); runScript($('script-editor').value);
   }));
   document.querySelectorAll('.side-item').forEach((button) => button.addEventListener('click', () => {
-    document.querySelectorAll('.side-item').forEach((item) => item.classList.toggle('active', item === button));
+    document.querySelectorAll('.side-item').forEach((item) => {
+      const isActive = item === button;
+      item.classList.toggle('active', isActive);
+      if (isActive) item.setAttribute('aria-current', 'location');
+      else item.removeAttribute('aria-current');
+    });
     const target = { command: 'command-panel', editor: 'editor-panel', variables: 'variables-panel', plots: 'plot-panel' }[button.dataset.panel];
     document.querySelector(`.${target}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
   }));

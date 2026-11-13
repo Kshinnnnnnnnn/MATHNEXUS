@@ -245,6 +245,11 @@ html, body {
   margin-top: 14px;
 }
 
+.workspace-nav {
+  display: grid;
+  gap: 4px;
+}
+
 .side-item {
   display: flex;
   align-items: center;
@@ -269,6 +274,12 @@ html, body {
 .side-item:hover {
   background: var(--bg-hover);
   color: var(--text-main);
+}
+
+.side-item:focus-visible,
+.example-link:focus-visible {
+  outline: 2px solid var(--matlab-blue-hover);
+  outline-offset: 2px;
 }
 
 .side-item.active {
@@ -373,6 +384,34 @@ html, body {
   }
 }
 
+@media (max-width: 680px) {
+  html, body {
+    height: auto;
+    min-height: 100%;
+    overflow: auto;
+  }
+
+  .topbar { position: sticky; top: 0; z-index: 5; }
+  .topbar-center { display: none; }
+
+  .workspace { flex-direction: column; overflow: visible; }
+  .sidebar {
+    width: 100%;
+    padding: 10px 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--bg-border);
+    overflow: visible;
+  }
+  .workspace-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .examples-heading, .example-link, .sidebar-footer { display: none; }
+
+  .main-area { overflow: visible; padding: 16px 12px 22px; }
+  .main-heading { align-items: flex-start; gap: 8px; }
+  .runtime-pill { max-width: 145px; text-align: right; }
+  .panel { height: 360px; min-height: 300px; }
+  .page-footer { flex-direction: column; gap: 4px; }
+}
+
 .panel {
   display: flex;
   flex-direction: column;
@@ -383,6 +422,7 @@ html, body {
   min-height: 340px;
   height: 380px;
   overflow: hidden;
+  scroll-margin: 18px;
 }
 
 .panel-title {

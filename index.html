@@ -16,12 +16,14 @@
     <div class="topbar-actions"><button class="icon-button" id="help-button" title="Help">?</button><button class="icon-button" id="theme-button" title="Toggle theme">◐</button></div>
   </header>
   <main class="workspace">
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="Workspace navigation">
       <div class="side-heading">WORKSPACE</div>
-      <button class="side-item active" data-panel="command"><span>⌘</span> Command Window</button>
-      <button class="side-item" data-panel="editor"><span>▤</span> Script Editor</button>
-      <button class="side-item" data-panel="variables"><span>◫</span> Variables</button>
-      <button class="side-item" data-panel="plots"><span>⌁</span> Plots</button>
+      <nav class="workspace-nav" aria-label="Workspace panels">
+        <button class="side-item active" type="button" data-panel="command" aria-current="location"><span aria-hidden="true">⌘</span> Command Window</button>
+        <button class="side-item" type="button" data-panel="editor"><span aria-hidden="true">▤</span> Script Editor</button>
+        <button class="side-item" type="button" data-panel="variables"><span aria-hidden="true">◫</span> Variables</button>
+        <button class="side-item" type="button" data-panel="plots"><span aria-hidden="true">⌁</span> Plots</button>
+      </nav>
       <div class="side-heading examples-heading">QUICK START</div>
       <button class="example-link" data-example="plot">Plot a signal</button>
       <button class="example-link" data-example="matrix">Matrix operations</button>
