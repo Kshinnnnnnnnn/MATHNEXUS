@@ -137,17 +137,12 @@ html, body {
 }
 
 .brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  background: linear-gradient(135deg, var(--matlab-blue), #006699);
-  color: #ffffff;
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
   border-radius: var(--radius-sm);
-  font-size: 17px;
-  font-weight: 900;
-  box-shadow: 0 2px 4px rgba(0, 136, 204, 0.3);
+  flex-shrink: 0;
 }
 
 .brand-accent {
